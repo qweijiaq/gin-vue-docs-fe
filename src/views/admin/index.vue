@@ -6,8 +6,28 @@
         </aside>
         <div class="main">
             <header>
-                <div class="left"></div>
-                <div class="right"></div>
+                <div class="left">
+                    <a-breadcrumb>
+                        <a-breadcrumb-item>首页</a-breadcrumb-item>
+                        <a-breadcrumb-item>个人信息</a-breadcrumb-item>
+                        <a-breadcrumb-item>用户中心</a-breadcrumb-item>
+                      </a-breadcrumb>
+                </div>
+                <div class="right">
+                    <icon-home></icon-home>
+                    <icon-moon-fill></icon-moon-fill>
+                    <icon-sun-fill></icon-sun-fill>
+                    <a-dropdown :popup-max-height="false">
+                        <a-button type="text">xxx<icon-down/></a-button>
+                        <template #content>
+                          <a-doption>个人信息</a-doption>
+                          <a-doption>用户列表</a-doption>
+                          <a-doption>角色列表</a-doption>
+                          <a-doption>日志列表</a-doption>
+                          <a-doption>退出登录</a-doption>
+                        </template>
+                      </a-dropdown>
+                </div>
             </header>
             <div class="tabs"></div>
             <main>
@@ -17,7 +37,9 @@
     </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+    import { IconHome, IconSunFill, IconMoonFill, IconDown } from '@arco-design/web-vue/es/icon';
+</script>
 
 <style lang="scss" scoped>
     .admin {
@@ -54,6 +76,14 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
+
+            .right {
+                > svg {
+                    margin-right: 10px;
+                    cursor: pointer;
+                    font-size: 16px;
+                }
+            }
         }
 
         > .tabs {
