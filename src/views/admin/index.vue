@@ -128,33 +128,6 @@ aside.isCollapsed {
     }
   }
 
-  > .tabs {
-    height: 30px;
-    background-color: var(--color-bg-1);
-    padding: 0 20px;
-    border-top: 1px solid var(--bg);
-    display: flex;
-    align-items: center;
-
-    .tab_item {
-      color: var(--color-text-1);
-      background-color: var(--color-bg-1);
-      border: 1px solid var(--bg);
-      border-radius: 5px;
-      height: 24px;
-      display: flex;
-      padding: 0 10px;
-      align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      cursor: pointer;
-      &.active {
-        color: white;
-        background-color: rgb(var(--arcoblue-6));
-      }
-    }
-  }
-
   > main {
     min-height: calc(100vh - 90px);
     background-color: var(--bg);
