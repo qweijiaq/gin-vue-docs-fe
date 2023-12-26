@@ -1,10 +1,11 @@
-import router from '../../router/index';
 <template>
   <div class="menu">
     <a-menu
       @menu-item-click="clickMenu"
       :defaultSelectedKeys="defaultSelectedKeys"
       :defaultOpenKeys="defaultOpenKeys"
+      show-collapse-button
+      @collapse="onCollapse"
     >
       <template v-for="item in menus" :key="item.key">
         <a-menu-item :key="item.name" v-if="item.children.length === 0">
@@ -46,7 +47,7 @@ import {
   IconBook,
   IconTool,
 } from "@arco-design/web-vue/es/icon";
-import { ref, type Component } from "vue";
+import { ref, defineEmits, type Component } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -149,6 +150,12 @@ function clickMenu(key: string) {
 
 const defaultSelectedKeys = ref([route.name]);
 const defaultOpenKeys = ref(route.matched[1].name);
+
+const emits = defineEmits(["collapse"]);
+
+function onCollapse(value: boolean, type: string) {
+  emits("collapse", value);
+}
 </script>
 
 <style lang="scss" scoped></style>

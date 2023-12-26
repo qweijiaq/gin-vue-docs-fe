@@ -1,8 +1,8 @@
 <template>
   <div class="admin">
-    <aside>
+    <aside :class="{ isCollapsed: isCollapsed }">
       <div class="logo">LOGO</div>
-      <gvd-menu />
+      <gvd-menu @collapse="onCollapse" />
     </aside>
     <div class="main">
       <header>
@@ -24,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import router from "@/router";
 import GvdMenu from "@/components/admin/menu.vue";
 import GvdBread from "@/components/admin/bread.vue";
@@ -37,6 +38,14 @@ import { IconHome } from "@arco-design/web-vue/es/icon";
 function goHome() {
   router.push({ name: "index" });
 }
+
+const isCollapsed = ref(false);
+
+function onCollapse(value: boolean) {
+  // true 代表折叠
+  // false 代表展开
+  isCollapsed.value = value;
+}
 </script>
 
 <style lang="scss">
@@ -48,6 +57,7 @@ aside {
   background-color: var(--color-bg-1);
   width: 240px;
   border-right: 1px solid var(--bg);
+  transition: all 0.3s;
 
   > .logo {
     color: rgb(var(--arcoblue-6));
@@ -61,12 +71,44 @@ aside {
 
   > .menu {
     width: 100%;
+
+    .arco-menu {
+      position: static;
+    }
+
+    .arco-menu-collapse-button {
+      opacity: 0;
+      transition: all 0.3s;
+      position: absolute;
+      left: 240px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &:hover {
+    .arco-menu-collapse-button {
+      opacity: 1;
+    }
+  }
+}
+
+aside.isCollapsed {
+  width: 48px;
+
+  .arco-menu-collapse-button {
+    left: 48px;
+  }
+
+  ~ .main {
+    width: calc(100vw - 48px);
   }
 }
 
 .main {
   overflow-y: auto;
   width: calc(100vw - 240px);
+  transition: all 0.3s;
 
   > header {
     height: 60px;
