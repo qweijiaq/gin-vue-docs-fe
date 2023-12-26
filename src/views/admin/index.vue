@@ -55,9 +55,9 @@
           </a-breadcrumb>
         </div>
         <div class="right">
-          <icon-home></icon-home>
-          <icon-moon-fill></icon-moon-fill>
-          <icon-sun-fill></icon-sun-fill>
+          <icon-home @click="goHome" />
+          <icon-moon-fill v-if="theme === ''" @click="setTheme" />
+          <icon-sun-fill v-if="theme === 'dark'" @click="setTheme" />
           <a-dropdown :popup-max-height="false">
             <a-button type="text">xxx<icon-down /></a-button>
             <template #content>
@@ -82,6 +82,7 @@
 </template>
 
 <script setup lang="ts">
+import router from "@/router";
 import {
   IconHome,
   IconSunFill,
@@ -98,6 +99,26 @@ import {
   IconBook,
   IconTool,
 } from "@arco-design/web-vue/es/icon";
+import type { Ref } from "vue";
+import { ref } from "vue";
+
+const theme: Ref<"" | "dark"> = ref("");
+
+// 去首页
+function goHome() {
+  router.push({ name: "index" });
+}
+
+// 主题切换
+function setTheme() {
+  if (document.body.hasAttribute("arco-theme")) {
+    theme.value = "";
+    document.body.removeAttribute("arco-theme");
+    return;
+  }
+  theme.value = "dark";
+  document.body.setAttribute("arco-theme", "dark");
+}
 </script>
 
 <style lang="scss" scoped>
@@ -111,6 +132,7 @@ aside {
   border-right: 1px solid var(--bg);
 
   > .logo {
+    color: rgb(var(--arcoblue-6));
     width: 100%;
     height: 90px;
     display: flex;
@@ -138,6 +160,7 @@ aside {
 
     .right {
       > svg {
+        color: var(--color-text-1);
         margin-right: 10px;
         cursor: pointer;
         font-size: 16px;
@@ -154,6 +177,7 @@ aside {
     align-items: center;
 
     .tab_item {
+      color: var(--color-text-1);
       background-color: var(--color-bg-1);
       border: 1px solid var(--bg);
       border-radius: 5px;
