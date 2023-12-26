@@ -2,78 +2,20 @@
   <div class="admin">
     <aside>
       <div class="logo">LOGO</div>
-      <div class="menu">
-        <a-menu>
-          <a-sub-menu key="1">
-            <template #icon><icon-home /></template>
-            <template #title>首页</template>
-          </a-sub-menu>
-          <a-sub-menu key="2">
-            <template #icon><icon-user /></template>
-            <template #title>个人中心</template>
-            <a-menu-item key="2_1"
-              ><template #icon><icon-info /></template>个人信息</a-menu-item
-            >
-            <a-menu-item key="2_2"
-              ><template #icon><icon-star /></template>收藏列表</a-menu-item
-            >
-          </a-sub-menu>
-          <a-sub-menu key="3">
-            <template #icon><icon-safe /></template>
-            <template #title>权限管理</template>
-            <a-menu-item key="3_1"
-              ><template #icon><icon-user-group /></template
-              >用户列表</a-menu-item
-            >
-            <a-menu-item key="3_2"
-              ><template #icon><icon-robot /></template>角色列表</a-menu-item
-            >
-            <a-menu-item key="3_3"
-              ><template #icon><icon-image /></template>图片列表</a-menu-item
-            >
-          </a-sub-menu>
-          <a-sub-menu key="4">
-            <template #icon><icon-settings /></template>
-            <template #title>网站管理</template>
-            <a-menu-item key="4_1"
-              ><template #icon><icon-book /></template>日志列表</a-menu-item
-            >
-            <a-menu-item key="4_2"
-              ><template #icon><icon-tool /></template>站点配置</a-menu-item
-            >
-          </a-sub-menu>
-        </a-menu>
-      </div>
+      <gvd-menu />
     </aside>
     <div class="main">
       <header>
         <div class="left">
-          <a-breadcrumb>
-            <a-breadcrumb-item>首页</a-breadcrumb-item>
-            <a-breadcrumb-item>个人信息</a-breadcrumb-item>
-            <a-breadcrumb-item>用户中心</a-breadcrumb-item>
-          </a-breadcrumb>
+          <gvd-bread />
         </div>
         <div class="right">
           <icon-home @click="goHome" />
-          <icon-moon-fill v-if="theme === ''" @click="setTheme" />
-          <icon-sun-fill v-if="theme === 'dark'" @click="setTheme" />
-          <a-dropdown :popup-max-height="false">
-            <a-button type="text">xxx<icon-down /></a-button>
-            <template #content>
-              <a-doption>个人信息</a-doption>
-              <a-doption>用户列表</a-doption>
-              <a-doption>角色列表</a-doption>
-              <a-doption>日志列表</a-doption>
-              <a-doption>退出登录</a-doption>
-            </template>
-          </a-dropdown>
+          <gvd-theme />
+          <gvd-user-info />
         </div>
       </header>
-      <div class="tabs">
-        <span class="tab_item active">首页</span>
-        <span class="tab_item">用户列表</span>
-      </div>
+      <gvd-tabs />
       <main>
         <router-view />
       </main>
@@ -83,45 +25,21 @@
 
 <script setup lang="ts">
 import router from "@/router";
-import {
-  IconHome,
-  IconSunFill,
-  IconMoonFill,
-  IconDown,
-  IconUser,
-  IconSettings,
-  IconSafe,
-  IconUserGroup,
-  IconRobot,
-  IconImage,
-  IconInfo,
-  IconStar,
-  IconBook,
-  IconTool,
-} from "@arco-design/web-vue/es/icon";
-import type { Ref } from "vue";
-import { ref } from "vue";
+import GvdMenu from "@/components/admin/menu.vue";
+import GvdBread from "@/components/admin/bread.vue";
+import GvdTheme from "@/components/admin/theme.vue";
+import GvdUserInfo from "@/components/admin/user_info.vue";
+import GvdTabs from "@/components/admin/tabs.vue";
 
-const theme: Ref<"" | "dark"> = ref("");
+import { IconHome } from "@arco-design/web-vue/es/icon";
 
 // 去首页
 function goHome() {
   router.push({ name: "index" });
 }
-
-// 主题切换
-function setTheme() {
-  if (document.body.hasAttribute("arco-theme")) {
-    theme.value = "";
-    document.body.removeAttribute("arco-theme");
-    return;
-  }
-  theme.value = "dark";
-  document.body.setAttribute("arco-theme", "dark");
-}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .admin {
   display: flex;
 }
