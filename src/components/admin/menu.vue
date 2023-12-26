@@ -1,7 +1,11 @@
 import router from '../../router/index';
 <template>
   <div class="menu">
-    <a-menu @menu-item-click="clickMenu">
+    <a-menu
+      @menu-item-click="clickMenu"
+      :defaultSelectedKeys="defaultSelectedKeys"
+      :defaultOpenKeys="defaultOpenKeys"
+    >
       <template v-for="item in menus" :key="item.key">
         <a-menu-item :key="item.name" v-if="item.children.length === 0">
           <template #icon>
@@ -42,13 +46,17 @@ import {
   IconBook,
   IconTool,
 } from "@arco-design/web-vue/es/icon";
+import { ref, type Component } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 interface MenuType {
   key: string;
   title: string;
   icon?: Component;
   name?: string;
-  children?: MenuType[];
+  children: MenuType[];
 }
 
 const menus: MenuType[] = [
@@ -63,7 +71,7 @@ const menus: MenuType[] = [
     key: "2",
     title: "个人中心",
     icon: IconUser,
-    name: "",
+    name: "center",
     children: [
       {
         key: "2_1",
@@ -85,7 +93,7 @@ const menus: MenuType[] = [
     key: "3",
     title: "权限管理",
     icon: IconSafe,
-    name: "",
+    name: "permission",
     children: [
       {
         key: "3_1",
@@ -114,7 +122,7 @@ const menus: MenuType[] = [
     key: "4",
     title: "网站管理",
     icon: IconSettings,
-    name: "",
+    name: "site",
     children: [
       {
         key: "4_1",
@@ -134,9 +142,13 @@ const menus: MenuType[] = [
   },
 ];
 
+// clickMenu 点击侧边栏跳转路由
 function clickMenu(key: string) {
   router.push({ name: key });
 }
+
+const defaultSelectedKeys = ref([route.name]);
+const defaultOpenKeys = ref(route.matched[1].name);
 </script>
 
 <style lang="scss" scoped></style>

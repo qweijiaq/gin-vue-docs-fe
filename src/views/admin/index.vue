@@ -33,7 +33,7 @@ import GvdTabs from "@/components/admin/tabs.vue";
 
 import { IconHome } from "@arco-design/web-vue/es/icon";
 
-// 去首页
+// goHome 去首页
 function goHome() {
   router.push({ name: "index" });
 }

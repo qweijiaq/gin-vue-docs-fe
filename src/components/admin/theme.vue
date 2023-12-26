@@ -10,7 +10,7 @@ import { ref } from "vue";
 
 const theme: Ref<"" | "dark"> = ref("");
 
-// 主题切换
+// setTheme 主题切换
 function setTheme() {
   if (document.body.hasAttribute("arco-theme")) {
     theme.value = "";

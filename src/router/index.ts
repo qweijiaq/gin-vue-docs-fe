@@ -4,9 +4,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "index",
-      component: () => import("@/views/web/index.vue"),
+      path: "",
+      name: "",
+      children: [
+        {
+          path: "",
+          name: "index",
+          component: () => import("@/views/web/index.vue"),
+        },
+      ],
     },
     {
       path: "/document/:id",
@@ -24,39 +30,58 @@ const router = createRouter({
           component: () => import("@/views/admin/home/index.vue"),
         },
         {
-          path: "info",
-          name: "info",
-          component: () => import("@/views/admin/user/user_info.vue"),
+          path: "center",
+          name: "center",
+          children: [
+            {
+              path: "info",
+              name: "info",
+              component: () => import("@/views/admin/user/user_info.vue"),
+            },
+            {
+              path: "collection",
+              name: "collection",
+              component: () => import("@/views/admin/user/user_collect.vue"),
+            },
+          ],
         },
         {
-          path: "collection",
-          name: "collection",
-          component: () => import("@/views/admin/user/user_collect.vue"),
+          path: "permission",
+          name: "permission",
+          children: [
+            {
+              path: "users",
+              name: "users",
+              component: () => import("@/views/admin/permission/user_list.vue"),
+            },
+            {
+              path: "roles",
+              name: "roles",
+              component: () => import("@/views/admin/permission/role_list.vue"),
+            },
+            {
+              path: "images",
+              name: "images",
+              component: () =>
+                import("@/views/admin/permission/image_list.vue"),
+            },
+          ],
         },
         {
-          path: "users",
-          name: "users",
-          component: () => import("@/views/admin/permission/user_list.vue"),
-        },
-        {
-          path: "roles",
-          name: "roles",
-          component: () => import("@/views/admin/permission/role_list.vue"),
-        },
-        {
-          path: "images",
-          name: "images",
-          component: () => import("@/views/admin/permission/image_list.vue"),
-        },
-        {
-          path: "logs",
-          name: "logs",
-          component: () => import("@/views/admin/website/log_list.vue"),
-        },
-        {
-          path: "config",
-          name: "config",
-          component: () => import("@/views/admin/website/site_config.vue"),
+          path: "site",
+          name: "site",
+          children: [
+            {
+              path: "logs",
+              name: "logs",
+              component: () => import("@/views/admin/website/log_list.vue"),
+            },
+            {
+              path: "config",
+              name: "config",
+              component: () => import("@/views/admin/website/site_config.vue"),
+            },
+          ],
         },
       ],
     },
