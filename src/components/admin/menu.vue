@@ -2,8 +2,8 @@
   <div class="menu">
     <a-menu
       @menu-item-click="clickMenu"
-      :defaultSelectedKeys="defaultSelectedKeys"
-      :defaultOpenKeys="defaultOpenKeys"
+      v-model:selectedKeys="defaultSelectedKeys"
+      v-model:openKeys="defaultOpenKeys"
       show-collapse-button
       @collapse="onCollapse"
     >
@@ -47,7 +47,7 @@ import {
   IconBook,
   IconTool,
 } from "@arco-design/web-vue/es/icon";
-import { ref, defineEmits, type Component } from "vue";
+import { ref, defineEmits, type Component, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -149,13 +149,22 @@ function clickMenu(key: string) {
 }
 
 const defaultSelectedKeys = ref([route.name]);
-const defaultOpenKeys = ref(route.matched[1].name);
+const defaultOpenKeys = ref([route.matched[1].name]);
 
 const emits = defineEmits(["collapse"]);
 
 function onCollapse(value: boolean, type: string) {
   emits("collapse", value);
 }
+
+// 监听页面路由的变化，从而更改菜单栏对应的状态
+watch(
+  () => route.name,
+  () => {
+    defaultSelectedKeys.value = [route.name];
+    defaultOpenKeys.value = [route.matched[1].name];
+  }
+);
 </script>
 
 <style lang="scss" scoped></style>

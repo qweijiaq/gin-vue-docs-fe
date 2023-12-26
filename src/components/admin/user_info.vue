@@ -46,6 +46,7 @@ function clickItem(item: tabItem) {
 .dropdown {
   cursor: pointer;
   transition: all 0.3s;
+  color: var(--color-text-1);
 
   &:hover {
     color: rgb(var(--arcoblue-6));
