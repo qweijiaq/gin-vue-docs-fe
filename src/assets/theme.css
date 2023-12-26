@@ -1,0 +1,31 @@
+body {
+    --bg: #f0eeee;
+
+
+    --index_color: #2D927D;
+    --index_text_color: #454545;
+
+    --index_fixed_menu_bg: #90909050;
+    --index_fixed_menu_bg_hover: rgba(157, 157, 157, 0.31);
+
+    --translucent_bg: rgba(255, 255, 255, 0.5);
+
+    --doc_bg: white;
+    --doc_border: var(--bg);
+
+}
+
+body[arco-theme='dark'] {
+    --bg: #373737;
+
+    --index_color: #E8E6E6;
+    --index_text_color: #D9D9D9;
+
+    --index_fixed_menu_bg: rgb(100 100 100 / 31%);
+    --index_fixed_menu_bg_hover: rgba(119, 118, 118, 0.31);
+
+    --translucent_bg: rgba(0, 0, 0, 0.5);
+
+    --doc_bg: #000;
+    --doc_border: #1a1a1a;
+}
