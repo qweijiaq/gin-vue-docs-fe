@@ -1,5 +1,7 @@
 <template>
-  <div>用户列表</div>
+  <div class="view">
+    <div>用户列表</div>
+  </div>
 </template>
 
 <script setup lang="ts"></script>
