@@ -54,6 +54,8 @@ watch(
         name: route.name as string,
         title: route.meta.title as string,
       });
+      // 更新到store里面去
+      setStoreByTabList();
     }
   }
 );
@@ -69,6 +71,7 @@ function closeItem(item: tabItem) {
   // 先删除点击的这个tab
   let index = tabList.value.findIndex((tab) => item.name === tab.name);
   tabList.value.splice(index, 1);
+  setStoreByTabList();
 
   // 如果是点击当前所在页面
   if (item.name === (route.name as string)) {
@@ -86,7 +89,30 @@ function closeAllTab() {
   if (route.name !== "home") {
     router.push({ name: "home" });
   }
+  setStoreByTabList();
 }
+
+// setStoreByTabList 更新 tabs 到 store
+function setStoreByTabList() {
+  localStorage.setItem("tabList", JSON.stringify(tabList.value));
+}
+
+// loadStoreByTabList 加载 tabs
+function loadStoreByTabList() {
+  let val = localStorage.getItem("tabList");
+  if (val === null) {
+    return;
+  }
+  let tabs = [];
+  try {
+    tabs = JSON.parse(val);
+  } catch (e) {
+    return;
+  }
+  tabList.value = tabs;
+}
+
+loadStoreByTabList();
 </script>
 
 <style lang="scss" scoped>
