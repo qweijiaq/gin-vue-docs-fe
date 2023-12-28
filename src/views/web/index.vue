@@ -31,9 +31,58 @@
           </li>
         </ul>
         <div class="banner_images"></div>
+        <a-modal
+          width="600px"
+          v-model:visible="visible"
+          :footer="false"
+          modal-class="login_modal"
+        >
+          <div class="left"></div>
+          <div class="right">
+            <div class="head">
+              <h2>登录知识库</h2>
+              <div class="close">X</div>
+            </div>
+            <div class="body">
+              <a-form
+                :model="form"
+                :label-col-props="{ span: 0, offset: 0 }"
+                :wrapper-col-props="{ span: 24, offset: 0 }"
+              >
+                <a-form-item field="username">
+                  <a-input v-model="form.username" placeholder="用户名" />
+                </a-form-item>
+                <a-form-item field="password">
+                  <a-input
+                    v-model="form.password"
+                    type="password"
+                    placeholder="密码"
+                  />
+                </a-form-item>
+                <a-form-item>
+                  <a-button type="primary" style="width: 100%">登录</a-button>
+                </a-form-item>
+                <a-form-item>
+                  <span class="desc">说明</span>
+                </a-form-item>
+                <a-form-item>
+                  <div class="desc_content">
+                    <div><strong>首次登录将自动创建账号</strong></div>
+                    <div>有任何问题请联系：2112025700(QQ)</div>
+                  </div>
+                </a-form-item>
+              </a-form>
+            </div>
+          </div>
+        </a-modal>
         <div class="banner_btns">
           <a href="javascript:void (0)" class="banner_go_btn">Go</a>
-          <a href="javascript:void (0)" class="banner_login_btn">登录</a>
+          <a
+            href="javascript:void (0)"
+            class="banner_login_btn"
+            @click="visible = true"
+            >登录</a
+          >
         </div>
         <div class="banner_btn_login"><icon-double-down /></div>
       </div>
@@ -77,6 +126,13 @@ const bannerColor: BannerColorType = {
 const activeBannerColor = ref(
   "linear-gradient(to left bottom, #CCDAEE 0%, #D0F0CF 100%)"
 );
+
+const visible = ref(false);
+
+const form = ref({
+  username: "",
+  password: "",
+});
 
 watch(
   () => store.theme,
@@ -170,6 +226,88 @@ watch(
   .docs_view {
     min-height: 100vh;
     width: 100%;
+  }
+}
+
+.login_modal {
+  .arco-modal-header {
+    display: none;
+  }
+
+  .arco-modal-body {
+    display: flex;
+    padding: 0;
+    height: 380px;
+
+    .left {
+      width: 50%;
+      height: 100%;
+      border-right: 1px solid var(--bg);
+    }
+
+    .right {
+      width: 50%;
+      height: 100%;
+
+      .head {
+        display: flex;
+        justify-content: center;
+        position: relative;
+        border-bottom: 1px solid var(--bg);
+
+        h2 {
+          margin: 10px 0;
+          font-size: 20px;
+          color: var(--color-text-1);
+        }
+
+        .close {
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          font-size: 20px;
+        }
+      }
+
+      .body {
+        margin: 10px 0;
+        padding: 20px;
+
+        .desc {
+          width: 100%;
+          font-size: 12px;
+          color: var(--color-text-2);
+          display: flex;
+          align-items: center;
+          text-align: center;
+
+          &::before {
+            width: 45%;
+            height: 1px;
+            background-color: var(--bg);
+            content: "";
+            display: inline-block;
+          }
+
+          &::after {
+            width: 45%;
+            height: 1px;
+            background-color: var(--bg);
+            content: "";
+            display: inline-block;
+          }
+        }
+
+        .desc_content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+        }
+      }
+    }
   }
 }
 </style>
