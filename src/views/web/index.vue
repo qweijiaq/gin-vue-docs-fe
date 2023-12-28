@@ -41,33 +41,13 @@
 
     <div class="docs_view"></div>
 
-    <a-trigger
-      trigger="click"
-      position="top"
-      auto-fit-position
-      :unmount-on-close="false"
-    >
-      <div class="fixed_menu">?</div>
-      <template #content>
-        <div class="fixed_menu_content">
-          <div class="item" title="主题切换"><gvd-theme /></div>
-          <div class="item" title="控制台"><icon-dashboard /></div>
-          <div class="item" title="用户列表"><icon-user-group /></div>
-          <div class="item" title="系统配置"><icon-settings /></div>
-        </div>
-      </template>
-    </a-trigger>
+    <gvd-fixed-theme />
   </div>
 </template>
 
 <script setup lang="ts">
-import {
-  IconDoubleDown,
-  IconDashboard,
-  IconUserGroup,
-  IconSettings,
-} from "@arco-design/web-vue/es/icon";
-import GvdTheme from "@/components/admin/theme.vue";
+import { IconDoubleDown } from "@arco-design/web-vue/es/icon";
+import GvdFixedTheme from "@/components/web/fixed_menu.vue";
 import { useStore } from "@/stores";
 import { watch } from "vue";
 import { ref } from "vue";
@@ -190,46 +170,6 @@ watch(
   .docs_view {
     min-height: 100vh;
     width: 100%;
-  }
-}
-
-.fixed_menu {
-  position: fixed;
-  right: 97px;
-  bottom: 40px;
-  width: 46px;
-  height: 46px;
-  background-color: var(--index_fixed_menu_bg);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.fixed_menu_content {
-  background-color: var(--index_fixed_menu_bg);
-  border-radius: 5px;
-  overflow: hidden;
-  width: 32px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .item {
-    height: 32px;
-    line-height: 32px;
-    width: 100%;
-    text-align: center;
-    cursor: pointer;
-    color: var(--color-text-1);
-
-    &:hover {
-      background-color: var(--index_fixed_menu_bg_hover);
-    }
   }
 }
 </style>
