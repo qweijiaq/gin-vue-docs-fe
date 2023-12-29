@@ -1,9 +1,7 @@
 import { Message } from "@arco-design/web-vue";
 import axios from "axios";
 
-export const useAxios = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
-});
+export const useAxios = axios.create({});
 
 useAxios.interceptors.request.use((config) => {
   config.headers["token"] = "xxxx";
