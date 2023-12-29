@@ -16,6 +16,10 @@
 import { IconDown } from "@arco-design/web-vue/es/icon";
 import router from "@/router";
 import { Message } from "@arco-design/web-vue";
+import { useStore } from "@/stores/index";
+import { logout } from "@/utils/logout";
+
+const store = useStore();
 
 interface tabItem {
   name: string;
@@ -24,17 +28,28 @@ interface tabItem {
 
 let menuList: tabItem[] = [
   { name: "info", title: "个人信息" },
-  { name: "users", title: "用户列表" },
-  { name: "roles", title: "角色列表" },
-  { name: "logs", title: "日志列表" },
   { name: "logout", title: "注销退出" },
 ];
+
+function getMenuList() {
+  if (store.isAdmin) {
+    menuList = [
+      { name: "info", title: "个人信息" },
+      { name: "users", title: "用户列表" },
+      { name: "roles", title: "角色列表" },
+      { name: "logs", title: "日志列表" },
+      { name: "logout", title: "注销退出" },
+    ];
+  }
+}
+
+getMenuList();
 
 // clickItem 点击下拉菜单项
 function clickItem(item: tabItem) {
   if (item.name === "logout") {
     // 注销
-    Message.info("注销成功");
+    logout();
     router.push({ name: "index" });
     return;
   }
@@ -53,3 +68,4 @@ function clickItem(item: tabItem) {
   }
 }
 </style>
+@/utils/logout

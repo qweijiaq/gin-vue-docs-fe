@@ -33,7 +33,7 @@ import type { Component } from "vue";
 import type { Ref } from "vue";
 import { ref } from "vue";
 import router from "@/router";
-import { logout } from "@/type/logout";
+import { logout } from "@/utils/logout";
 import { useStore } from "@/stores/index";
 import { shallowRef } from "vue";
 import { watch } from "vue";
@@ -138,3 +138,4 @@ function clickItem(item: menuType) {
   }
 }
 </style>
+@/utils/logout
