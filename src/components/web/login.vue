@@ -77,6 +77,7 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { IconClose } from "@arco-design/web-vue/es/icon";
+import { loginApi } from "@/api/user";
 
 const form = reactive({
   userName: "",
@@ -96,10 +97,11 @@ function close() {
 const formRef = ref();
 
 async function login() {
-  let res = await formRef.value.validate();
-  if (res !== undefined) {
+  let _res = await formRef.value.validate();
+  if (_res !== undefined) {
     return;
   }
+  let res = await loginApi(form);
 }
 </script>
 
