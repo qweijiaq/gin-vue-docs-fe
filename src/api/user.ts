@@ -9,3 +9,7 @@ export interface LoginRequest {
 export function loginApi(data: LoginRequest): Promise<Response<string>> {
   return useAxios.post("/api/login", data);
 }
+
+export function logoutApi(): Promise<Response<string>> {
+  return useAxios.get("/api/logout");
+}

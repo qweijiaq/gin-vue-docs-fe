@@ -26,12 +26,14 @@ import {
   IconDashboard,
   IconUserGroup,
   IconSettings,
+  IconExport,
 } from "@arco-design/web-vue/es/icon";
 import GvdTheme from "@/components/admin/theme.vue";
 import type { Component } from "vue";
 import type { Ref } from "vue";
 import { ref } from "vue";
 import router from "@/router";
+import { logout } from "@/type/logout";
 
 interface menuType {
   title: string;
@@ -44,12 +46,16 @@ const menuList: Ref<menuType[]> = ref([
   { title: "控制台", icon: IconDashboard, name: "home" },
   { title: "用户列表", icon: IconUserGroup, name: "users" },
   { title: "系统配置", icon: IconSettings, name: "config" },
+  { title: "注销", icon: IconExport, name: "logout" },
 ]);
 
 function clickItem(item: menuType) {
   if (item.name === "") return;
 
-  if (item.name === "logout") return;
+  if (item.name === "logout") {
+    logout();
+    return;
+  }
 
   router.push({
     name: item.name,

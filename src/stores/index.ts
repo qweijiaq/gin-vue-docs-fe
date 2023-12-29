@@ -69,6 +69,10 @@ export const useStore = defineStore("useStore", {
       }
       this.userInfo = payload;
     },
+    clearToken() {
+      localStorage.removeItem("userInfo");
+      this.userInfo = userInfo;
+    },
   },
 
   getters: {
