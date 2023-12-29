@@ -15,7 +15,6 @@
 <script setup lang="ts">
 import { IconDown } from "@arco-design/web-vue/es/icon";
 import router from "@/router";
-import { Message } from "@arco-design/web-vue";
 import { useStore } from "@/stores/index";
 import { logout } from "@/utils/logout";
 
