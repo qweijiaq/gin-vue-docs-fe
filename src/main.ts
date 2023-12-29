@@ -11,7 +11,7 @@ import { Mock } from "@/mock";
 
 const app = createApp(App);
 
-Mock();
+// Mock();
 
 app.use(createPinia());
 app.use(ArcoVue);
