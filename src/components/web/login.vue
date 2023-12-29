@@ -57,7 +57,9 @@
             />
           </a-form-item>
           <a-form-item>
-            <a-button type="primary" style="width: 100%">登录</a-button>
+            <a-button type="primary" style="width: 100%" @click="login"
+              >登录</a-button
+            >
           </a-form-item>
           <a-form-item>
             <span class="desc">说明</span>
@@ -77,9 +79,13 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { IconClose } from "@arco-design/web-vue/es/icon";
-import { loginApi } from "@/api/user";
+import { loginApi, type LoginRequest } from "@/api/user";
+import { Message } from "@arco-design/web-vue";
+import { useStore } from '../../stores/index';
 
-const form = reactive({
+const store = useStore();
+
+const form: LoginRequest = reactive({
   userName: "",
   password: "",
 });
@@ -102,6 +108,13 @@ async function login() {
     return;
   }
   let res = await loginApi(form);
+  if (res.code !== 0) {
+    Message.error(res.msg);
+    return;
+  }
+  store.setToken(res.data);
+  Message.success("登录成功");
+  close();
 }
 </script>
 

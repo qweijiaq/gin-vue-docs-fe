@@ -3,6 +3,33 @@ import axios from "axios";
 
 export const useAxios = axios.create({});
 
+export interface Params {
+  key?: string;
+  sort?: string;
+  limit?: number;
+  page?: number;
+}
+
+export interface Response<T> {
+  code: number;
+  data: T;
+  msg: string;
+}
+
+export interface ListResponse<T> {
+  code: number;
+  data: {
+    count: number;
+    list: T[];
+  };
+  msg: string;
+}
+
+export interface OptionsResponse {
+  label: string;
+  value: number;
+}
+
 useAxios.interceptors.request.use((config) => {
   config.headers["token"] = "xxxx";
   return config;
