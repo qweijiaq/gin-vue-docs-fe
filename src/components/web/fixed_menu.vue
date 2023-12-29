@@ -34,6 +34,11 @@ import type { Ref } from "vue";
 import { ref } from "vue";
 import router from "@/router";
 import { logout } from "@/type/logout";
+import { useStore } from "@/stores/index";
+import { shallowRef } from "vue";
+import { watch } from "vue";
+
+const store = useStore();
 
 interface menuType {
   title: string;
@@ -43,11 +48,40 @@ interface menuType {
 
 const menuList: Ref<menuType[]> = ref([
   { title: "主题切换", icon: GvdTheme, name: "" },
-  { title: "控制台", icon: IconDashboard, name: "home" },
-  { title: "用户列表", icon: IconUserGroup, name: "users" },
-  { title: "系统配置", icon: IconSettings, name: "config" },
-  { title: "注销", icon: IconExport, name: "logout" },
 ]);
+
+function getMenuList() {
+  if (store.isLogin) {
+    if (store.isAdmin) {
+      menuList.value = [
+        { title: "主题切换", icon: shallowRef(GvdTheme), name: "" },
+        { title: "控制台", icon: shallowRef(IconDashboard), name: "home" },
+        { title: "用户列表", icon: shallowRef(IconUserGroup), name: "users" },
+        { title: "系统配置", icon: shallowRef(IconSettings), name: "logs" },
+        { title: "注销退出", icon: shallowRef(IconExport), name: "logout" },
+      ];
+      return;
+    }
+    menuList.value = [
+      { title: "主题切换", icon: shallowRef(GvdTheme), name: "" },
+      { title: "控制台", icon: shallowRef(IconDashboard), name: "home" },
+      { title: "注销退出", icon: shallowRef(IconExport), name: "logout" },
+    ];
+    return;
+  }
+  menuList.value = [
+    { title: "主题切换", icon: shallowRef(GvdTheme), name: "" },
+  ];
+  return;
+}
+
+watch(
+  () => store.userInfo.roleID,
+  () => {
+    getMenuList();
+  },
+  { immediate: true }
+);
 
 function clickItem(item: menuType) {
   if (item.name === "") return;

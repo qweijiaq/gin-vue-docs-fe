@@ -80,5 +80,9 @@ export const useStore = defineStore("useStore", {
     isLogin(): boolean {
       return this.userInfo.userID !== 0;
     },
+    // 是否是管理员
+    isAdmin(): boolean {
+      return this.userInfo.roleID === 1;
+    },
   },
 });
