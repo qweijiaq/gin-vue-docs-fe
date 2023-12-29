@@ -70,4 +70,11 @@ export const useStore = defineStore("useStore", {
       this.userInfo = payload;
     },
   },
+
+  getters: {
+    // 是否登录
+    isLogin(): boolean {
+      return this.userInfo.userID !== 0;
+    },
+  },
 });

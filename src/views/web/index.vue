@@ -32,7 +32,7 @@
         </ul>
         <div class="banner_images"></div>
         <gvd-login v-model:visible="visible" />
-        <div class="banner_btns">
+        <div class="banner_btns" v-if="!store.isLogin">
           <a href="javascript:void (0)" class="banner_go_btn">Go</a>
           <a
             href="javascript:void (0)"
@@ -41,7 +41,7 @@
             >登录</a
           >
         </div>
-        <div class="banner_btn_login"><icon-double-down /></div>
+        <div class="banner_btn_login" v-else><icon-double-down /></div>
       </div>
     </div>
 
